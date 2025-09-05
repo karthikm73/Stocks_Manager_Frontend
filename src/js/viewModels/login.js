@@ -17,6 +17,8 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
       this.city = ko.observable('');
 
       this.emailId = ko.observable('');
+      this.password= ko.observable('');
+
 
       
 

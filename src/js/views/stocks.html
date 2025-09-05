@@ -153,7 +153,7 @@
     <!-- END UPDATE STOCK -->
   </div>
 
-  <div data-bind="!isAdmin">
+  <div data-bind="visible:!isAdmin()">
     <button data-bind="click: listStock">List Stocks</button>
     <button data-bind="click: listMyStocks">My Stocks</button>
 

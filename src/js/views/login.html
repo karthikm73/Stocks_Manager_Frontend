@@ -1,13 +1,29 @@
-Hello login page
-<oj-c-form-layout  direction="row">
-  <oj-c-input-text value="{{firstName}}"  label-hint="First Name">></oj-c-input-text>
-  <oj-c-input-text value="{{lastName}}"  label-hint="Last Name">></oj-c-input-text>
-  <oj-c-input-text value="{{phoneNumber}}"  label-hint="Phone Number">></oj-c-input-text>
-  <oj-c-input-text value="{{city}}"  label-hint="City">></oj-c-input-text>
-  <oj-c-input-text value="{{emailId}}"  label-hint="Email Id">></oj-c-input-text>
-  <oj-c-input-sensitive-text value="{{password}}" label-hint="password" ></oj-c-input-sensitive-text>
-</oj-form-layout>
+<oj-c-form-layout direction="row">
 
-<button data-bind="click: submitCustomer">Log In As Customer</button>
 
-<button data-bind="click: submitAdmin">Log In As Admin</button>
+  <button data-bind="click : changeToOther">Sign In</button>
+  <button data-bind="click: changeToOther">Log In</button>
+
+  <div data-bind="visible: signin">
+    <oj-c-input-text value="{{firstName}}" label-hint="First Name">></oj-c-input-text>
+    <oj-c-input-text value="{{lastName}}" label-hint="Last Name">></oj-c-input-text>
+    <oj-c-input-text value="{{phoneNumber}}" label-hint="Phone Number">></oj-c-input-text>
+    <oj-c-input-text value="{{city}}" label-hint="City">></oj-c-input-text>
+    <oj-c-input-text value="{{emailId}}" label-hint="Email Id">></oj-c-input-text>
+    <oj-c-input-sensitive-text value="{{password}}" label-hint="password"></oj-c-input-sensitive-text>
+
+
+    <button data-bind="click: submitCustomer">Sign In As Customer</button>
+
+    <button data-bind="click: submitAdmin">Sign In As Admin</button>
+  </div>
+  <div data-bind="!signin">
+    <oj-c-input-text value="{{emailId}}" label-hint="Email Id">></oj-c-input-text>
+    <oj-c-input-sensitive-text value="{{password}}" label-hint="password"></oj-c-input-sensitive-text>
+
+    <button data-bind="click: loginCustomer">Log In As Customer</button>
+
+    <button data-bind="click: loginAdmin">Log In As Admin</button>
+
+  </div>
+  </oj-form-layout>

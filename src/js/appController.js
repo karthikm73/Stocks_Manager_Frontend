@@ -46,7 +46,6 @@ define(['knockout', 'ojs/ojcontext', 'ojs/ojmodule-element-utils', 'ojs/ojknocko
       this.isAdmin = ko.observable(localStorage.getItem("isAdmin") === "true");
       console.log(this.isAdmin());
 
-      // Override navData with a computed that filters based on isAdmin
       this.filteredNavData = ko.pureComputed(() => {
         return navData.filter(item => {
           if (item.path === 'customers' && !this.isAdmin()) {

@@ -1,17 +1,12 @@
-/**
- * @license
- * Copyright (c) 2014, 2025, Oracle and/or its affiliates.
- * Licensed under The Universal Permissive License (UPL), Version 1.0
- * as shown at https://oss.oracle.com/licenses/upl/
- * @ignore
- */
-/*
- * Your about ViewModel code goes here
- */
 define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/button", "oj-c/input-text", "oj-c/form-layout", "ojs/ojknockout"],
   function (accUtils, ko, CoreRouter, Bootstrap) {
     function LoginViewModel() {
       var self = this;
+
+      this.signin = ko.observable(false);
+      this.changeToOther=function(){
+        this.signin(!this.signin());
+      }
 
       this.firstName = ko.observable('');
 
@@ -108,6 +103,72 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
           .catch(error => {
             console.error("Error adding customer:", error);
           });
+      }
+
+      this.loginCustomer=function(){
+
+        if (!self.emailId()) {
+          alert("All fields are required.");
+          return;
+        }
+
+        fetch(`http://localhost:8081/customers/login/${this.emailId()}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+          .then(response => {
+            if (!response.ok) throw new Error("Network response error");
+            return response.json();
+          })
+          .then(data => {
+            alert("Customer Login Successful!");
+            localStorage.setItem("isLoggedIn", true);
+            localStorage.setItem("emailId", data.data.emailId);
+            localStorage.setItem("userId", data.data.customerId);
+            localStorage.setItem("isAdmin",false);
+            this.isLoggedIn(true)
+            location.reload();
+            CoreRouter.rootInstance.go({ path: 'stocks' });
+          })
+          .catch(error => {
+            console.error("Error login customer:", error);
+          });
+
+      }
+
+      this.loginAdmin=function(){
+
+        if (!self.emailId()) {
+          alert("All fields are required.");
+          return;
+        }
+
+        fetch(`http://localhost:8081/customers/login/${this.emailId()}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+          .then(response => {
+            if (!response.ok) throw new Error("Network response error");
+            return response.json();
+          })
+          .then(data => {
+            alert("Admin Login Successful!");
+            localStorage.setItem("isLoggedIn", true);
+            localStorage.setItem("emailId", data.data.emailId);
+            localStorage.setItem("userId", data.data.customerId);
+            localStorage.setItem("isAdmin",true);
+            this.isLoggedIn(true)
+            location.reload();
+            CoreRouter.rootInstance.go({ path: 'stocks' });
+          })
+          .catch(error => {
+            console.error("Error login Admin:", error);
+          });
+
       }
 
       this.connected = () => {

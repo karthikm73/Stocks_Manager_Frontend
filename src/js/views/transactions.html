@@ -1,0 +1,71 @@
+<div class="oj-hybrid-padding">
+  <h1>Transactions Page</h1>
+
+  <div data-bind="visible:isAdmin">
+    <!-- <button data-bind="click: listTransactions">List Transactions</button> -->
+    <!-- <br><br> -->
+
+    <table border="1" cellpadding="8" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Customer Id</th>
+          <th>Customer Name</th>
+          <th>Stock Id</th>
+          <th>Stock Name</th>
+          <th>Transaction Type</th>
+          <th>Transaction Price</th>
+          <th>Quantity</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: transactions">
+        <tr>
+          <td data-bind="text: txnId"></td>
+          <td data-bind="text: customer.customerId"></td>
+          <td data-bind="text: customer.firstName + ' ' + customer.lastName"></td>
+          <td data-bind="text: stock.stockId"></td>
+          <td data-bind="text: stock.name"></td>
+          <td data-bind="text: txnType"></td>
+          <td data-bind="text: txnPrice"></td>
+          <td data-bind="text: qty"></td>
+          <td data-bind="text: txnDate"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div data-bind="!isAdmin">
+
+    <table border="1" cellpadding="8" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <!-- <th>Customer Id</th>
+          <th>Customer Name</th> -->
+          <th>Stock Id</th>
+          <th>Stock Name</th>
+          <th>Transaction Type</th>
+          <th>Transaction Price</th>
+          <th>Quantity</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: transactions">
+        <tr>
+          <td data-bind="text: txnId"></td>
+          <!-- <td data-bind="text: customer.customerId"></td>
+          <td data-bind="text: customer.firstName + ' ' + customer.lastName"></td> -->
+          <td data-bind="text: stock.stockId"></td>
+          <td data-bind="text: stock.name"></td>
+          <td data-bind="text: txnType"></td>
+          <td data-bind="text: txnPrice"></td>
+          <td data-bind="text: qty"></td>
+          <td data-bind="text: txnDate"></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+</div>

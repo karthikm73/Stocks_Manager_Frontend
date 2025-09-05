@@ -1,0 +1,128 @@
+<div class="oj-hybrid-padding">
+  <h1>Customers Page</h1>
+
+  <div data-bind="visible:isAdmin">
+
+  <!-- ACTION BUTTONS -->
+  <div>
+    <button data-bind="click: addCustomer">Add Customer</button>
+    <button data-bind="click: deleteCustomer">Delete Customer</button>
+    <button data-bind="click: listCustomer">List Customers</button>
+    <button data-bind="click: updateCustomer">Update Customers</button>
+  </div>
+  <br />
+
+  <!-- ADD CUSTOMER FORM -->
+  <div data-bind="visible: showAddCustomer">
+    <h3>Add Customer</h3>
+    <label>First Name:</label>
+    <input type="text" data-bind="value: firstName" required />
+    <br />
+    <label>Last Name:</label>
+    <input type="text" data-bind="value: lastName" required />
+    <br />
+    <label>Phone Number:</label>
+    <input type="text" data-bind="value: phoneNumber" required />
+    <br />
+    <label>Email Id:</label>
+    <input type="text" data-bind="value: emailId" required />
+    <br />
+    <label>City:</label>
+    <input type="text" data-bind="value: city" required />
+    <br /><br />
+    <button data-bind="click: submitCustomer">Submit</button>
+  </div>
+
+  <!-- LIST CUSTOMERS -->
+  <div data-bind="visible: showAllCustomers">
+    <h3>All Customers</h3>
+    <table border="1" cellpadding="8" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phone Number</th>
+          <th>Email Id</th>
+          <th>City</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: customers">
+        <tr>
+          <td data-bind="text: customerId"></td>
+          <td data-bind="text: firstName"></td>
+          <td data-bind="text: lastName"></td>
+          <td data-bind="text: phoneNumber"></td>
+          <td data-bind="text: emailId"></td>
+          <td data-bind="text: city"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DELETE CUSTOMERS -->
+  <div data-bind="visible: showDeleteCustomer">
+    <h3>Delete Customers</h3>
+    <table border="1" cellpadding="8" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phone Number</th>
+          <th>City</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: customers">
+        <tr>
+          <td data-bind="text: customerId"></td>
+          <td data-bind="text: firstName"></td>
+          <td data-bind="text: lastName"></td>
+          <td data-bind="text: phoneNumber"></td>
+          <td data-bind="text: city"></td>
+          <td>
+            <button data-bind="click: function() { $parent.deleteCustomerById(customerId) }">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- UPDATE CUSTOMERS -->
+  <div data-bind="visible: showUpdateCustomer">
+
+
+    <!-- START UPDATE CUSTOMERS -->
+    <div data-bind="visible: showUpdateCustomer">
+      <h3>Update Customers</h3>
+      <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Customer ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Email Id</th>
+            <th>City</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: customers">
+          <tr>
+            <td data-bind="text: customerId"></td>
+            <td><input type="text" data-bind="value: firstName" /></td>
+            <td><input type="text" data-bind="value: lastName" /></td>
+            <td><input type="text" data-bind="value: phoneNumber" /></td>
+            <td><input type="text" data-bind="value: emailId" /></td>
+            <td><input type="text" data-bind="value: city" /></td>
+            <td>
+              <button data-bind="click: function() { $parent.updateCustomerById($data, customerId) }">Update</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+</div>

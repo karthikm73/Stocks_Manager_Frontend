@@ -1,128 +1,154 @@
-<div class="oj-hybrid-padding">
-  <h1>Customers Page</h1>
+<div class="oj-hybrid-padding customers-root">
 
-  <div data-bind="visible:isAdmin">
-
-  <!-- ACTION BUTTONS -->
-  <div>
-    <button data-bind="click: addCustomer">Add Customer</button>
-    <button data-bind="click: deleteCustomer">Delete Customer</button>
-    <button data-bind="click: listCustomer">List Customers</button>
-    <button data-bind="click: updateCustomer">Update Customers</button>
-  </div>
-  <br />
-
-  <!-- ADD CUSTOMER FORM -->
-  <div data-bind="visible: showAddCustomer">
-    <h3>Add Customer</h3>
-    <label>First Name:</label>
-    <input type="text" data-bind="value: firstName" required />
-    <br />
-    <label>Last Name:</label>
-    <input type="text" data-bind="value: lastName" required />
-    <br />
-    <label>Phone Number:</label>
-    <input type="text" data-bind="value: phoneNumber" required />
-    <br />
-    <label>Email Id:</label>
-    <input type="text" data-bind="value: emailId" required />
-    <br />
-    <label>City:</label>
-    <input type="text" data-bind="value: city" required />
-    <br /><br />
-    <button data-bind="click: submitCustomer">Submit</button>
+  <div class="page-header">
+    <h1>Customers</h1>
+    <p class="subtitle">Manage customers — add, list, update or delete</p>
   </div>
 
-  <!-- LIST CUSTOMERS -->
-  <div data-bind="visible: showAllCustomers">
-    <h3>All Customers</h3>
-    <table border="1" cellpadding="8" cellspacing="0">
-      <thead>
-        <tr>
-          <th>Customer ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Phone Number</th>
-          <th>Email Id</th>
-          <th>City</th>
-        </tr>
-      </thead>
-      <tbody data-bind="foreach: customers">
-        <tr>
-          <td data-bind="text: customerId"></td>
-          <td data-bind="text: firstName"></td>
-          <td data-bind="text: lastName"></td>
-          <td data-bind="text: phoneNumber"></td>
-          <td data-bind="text: emailId"></td>
-          <td data-bind="text: city"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- Admin-only area (keeps your isAdmin observable) -->
+  <div data-bind="visible: isAdmin">
 
-  <!-- DELETE CUSTOMERS -->
-  <div data-bind="visible: showDeleteCustomer">
-    <h3>Delete Customers</h3>
-    <table border="1" cellpadding="8" cellspacing="0">
-      <thead>
-        <tr>
-          <th>Customer ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Phone Number</th>
-          <th>City</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody data-bind="foreach: customers">
-        <tr>
-          <td data-bind="text: customerId"></td>
-          <td data-bind="text: firstName"></td>
-          <td data-bind="text: lastName"></td>
-          <td data-bind="text: phoneNumber"></td>
-          <td data-bind="text: city"></td>
-          <td>
-            <button data-bind="click: function() { $parent.deleteCustomerById(customerId) }">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <!-- Action buttons toolbar -->
+    <div class="toolbar">
+      <oj-button class="toolbar-btn" data-bind="click: addCustomer">Add Customer</oj-button>
+      <oj-button class="toolbar-btn" data-bind="click: deleteCustomer">Delete Customer</oj-button>
+      <oj-button class="toolbar-btn" data-bind="click: listCustomer">List Customers</oj-button>
+      <oj-button class="toolbar-btn" data-bind="click: updateCustomer">Update Customers</oj-button>
+    </div>
 
-  <!-- UPDATE CUSTOMERS -->
-  <div data-bind="visible: showUpdateCustomer">
+    <hr />
 
+    <!-- ADD CUSTOMER FORM -->
+    <div data-bind="visible: showAddCustomer" class="card form-card">
+      <h3>Add Customer</h3>
 
-    <!-- START UPDATE CUSTOMERS -->
-    <div data-bind="visible: showUpdateCustomer">
-      <h3>Update Customers</h3>
-      <table border="1" cellpadding="8" cellspacing="0">
+      <oj-form-layout label-edge="start" max-columns="2" class="form-grid">
+        <oj-input-text label-hint="First Name" class="full" value="{{firstName}}"></oj-input-text>
+        <oj-input-text label-hint="Last Name" class="full" value="{{lastName}}"></oj-input-text>
+
+        <oj-input-text label-hint="Phone Number" class="full" value="{{phoneNumber}}"></oj-input-text>
+        <oj-input-text label-hint="Email Id" class="full" value="{{emailId}}"></oj-input-text>
+
+        <oj-input-text label-hint="City" class="full" value="{{city}}"></oj-input-text>
+        <!-- If you later want to add password for customer creation -->
+        <!--<oj-input-password label-hint="Password" class="full" value="{{password}}"></oj-input-password>-->
+      </oj-form-layout>
+
+      <div class="form-actions">
+        <oj-button class="primary" data-bind="click: submitCustomer">Submit</oj-button>
+      </div>
+    </div>
+
+    <!-- LIST CUSTOMERS (uses oj-table for a polished table) -->
+    <div data-bind="visible: showAllCustomers" class="card list-card">
+      <h3>All Customers</h3>
+
+      <!-- oj-table expects a data collection; keep your `customers` observableArray -->
+      <oj-table
+        data="{{customers}}"
+        columns='[{"headerText":"Customer ID","field":"customerId"},
+                  {"headerText":"First Name","field":"firstName"},
+                  {"headerText":"Last Name","field":"lastName"},
+                  {"headerText":"Phone Number","field":"phoneNumber"},
+                  {"headerText":"Email Id","field":"emailId"},
+                  {"headerText":"City","field":"city"}]'
+        class="oj-table-responsive">
+      </oj-table>
+    </div>
+
+    <!-- DELETE CUSTOMERS (table with action buttons) -->
+    <div data-bind="visible: showDeleteCustomer" class="card list-card">
+      <h3>Delete Customers</h3>
+
+      <table class="styled-table">
         <thead>
           <tr>
-            <th>Customer ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Phone Number</th>
-            <th>Email Id</th>
-            <th>City</th>
-            <th>Action</th>
+            <th>Customer ID</th><th>First Name</th><th>Last Name</th><th>Phone</th><th>City</th><th>Action</th>
           </tr>
         </thead>
         <tbody data-bind="foreach: customers">
           <tr>
             <td data-bind="text: customerId"></td>
-            <td><input type="text" data-bind="value: firstName" /></td>
-            <td><input type="text" data-bind="value: lastName" /></td>
-            <td><input type="text" data-bind="value: phoneNumber" /></td>
-            <td><input type="text" data-bind="value: emailId" /></td>
-            <td><input type="text" data-bind="value: city" /></td>
+            <td data-bind="text: firstName"></td>
+            <td data-bind="text: lastName"></td>
+            <td data-bind="text: phoneNumber"></td>
+            <td data-bind="text: city"></td>
             <td>
-              <button data-bind="click: function() { $parent.updateCustomerById($data, customerId) }">Update</button>
+              <!-- use oj-button but keep your viewModel delete fn -->
+              <oj-button data-bind="click: function() { $parent.deleteCustomerById(customerId) }" class="danger small">Delete</oj-button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div>
-  </div>
+
+    <!-- UPDATE CUSTOMERS -->
+    <div data-bind="visible: showUpdateCustomer" class="card list-card">
+      <h3>Update Customers</h3>
+
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Customer ID</th><th>First Name</th><th>Last Name</th><th>Phone</th><th>Email</th><th>City</th><th>Action</th>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: customers">
+          <tr>
+            <td data-bind="text: customerId"></td>
+
+            <!-- using oj-input-text inside rows — keeps two-way binding to each item -->
+            <td><oj-input-text class="small-input" value="{{firstName}}"></oj-input-text></td>
+            <td><oj-input-text class="small-input" value="{{lastName}}"></oj-input-text></td>
+            <td><oj-input-text class="small-input" value="{{phoneNumber}}"></oj-input-text></td>
+            <td><oj-input-text class="small-input" value="{{emailId}}"></oj-input-text></td>
+            <td><oj-input-text class="small-input" value="{{city}}"></oj-input-text></td>
+
+            <td>
+              <oj-button data-bind="click: function() { $parent.updateCustomerById($data, customerId) }" class="primary small">Update</oj-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div> <!-- /isAdmin -->
+
 </div>
+
+<style>
+  /* Root/layout */
+  .customers-root { max-width: 1100px; margin: 1.5rem auto; }
+  .page-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+  .page-header h1 { margin:0; }
+  .subtitle { margin:0; color:#666; font-size:0.95rem; }
+
+  .toolbar { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:12px; }
+  .toolbar-btn { border-radius:8px; }
+
+  .card { background:#fff; border-radius:10px; padding:16px; box-shadow:0 6px 18px rgba(0,0,0,0.06); margin-bottom:18px; border:1px solid rgba(0,0,0,0.04); }
+
+  .form-grid { gap:12px; }
+  .full { width:100%; }
+
+  .form-actions { margin-top:12px; display:flex; gap:8px; }
+  oj-button.primary { --oj-button-bg: #0b78e3; color:#fff; }
+  oj-button.danger { --oj-button-bg: #e03b3b; color:#fff; }
+
+  /* Table styles (for fallback HTML tables) */
+  .styled-table { width:100%; border-collapse: collapse; }
+  .styled-table thead th { text-align:left; padding:10px 8px; background:#f7f8fa; border-bottom:1px solid #e8e9eb; }
+  .styled-table tbody td { padding:10px 8px; border-bottom:1px solid #f0f0f0; vertical-align:middle; }
+  .styled-table tbody tr:hover { background:#fbfcfe; }
+
+  .small { padding:6px 10px; font-size:0.9rem; }
+  .small-input ::slotted(input) { font-size:0.95rem; }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .page-header { flex-direction:column; align-items:stretch; text-align:center; gap:6px; }
+    .toolbar { justify-content:center; }
+  }
+
+  /* oj-table responsive helper */
+  .oj-table-responsive ::slotted(table) { width:100%; }
+</style>

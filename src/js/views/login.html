@@ -1,29 +1,35 @@
-<oj-c-form-layout direction="row">
+<oj-form-layout direction="row" label-edge="top" max-columns="1" class="oj-sm-padding-4x">
 
-
-  <button data-bind="click : changeToOther">Sign In</button>
-  <button data-bind="click: changeToOther">Log In</button>
-
-  <div data-bind="visible: signin">
-    <oj-c-input-text value="{{firstName}}" label-hint="First Name">></oj-c-input-text>
-    <oj-c-input-text value="{{lastName}}" label-hint="Last Name">></oj-c-input-text>
-    <oj-c-input-text value="{{phoneNumber}}" label-hint="Phone Number">></oj-c-input-text>
-    <oj-c-input-text value="{{city}}" label-hint="City">></oj-c-input-text>
-    <oj-c-input-text value="{{emailId}}" label-hint="Email Id">></oj-c-input-text>
-    <oj-c-input-text value="{{password}}" label-hint="password"></oj-c-input-text>
-
-
-    <button data-bind="click: submitCustomer">Sign In As Customer</button>
-
-    <button data-bind="click: submitAdmin">Sign In As Admin</button>
+  <!-- Toggle Buttons -->
+  <div class="oj-flex oj-sm-justify-content-center oj-sm-margin-2x">
+    <oj-button on-oj-action="[[changeToOther]]" class="oj-sm-margin-2x">Sign In</oj-button>
+    <oj-button on-oj-action="[[changeToOther]]" class="oj-sm-margin-2x">Log In</oj-button>
   </div>
-  <div data-bind="visible:!signin()">
-    <oj-c-input-text value="{{emailId}}" label-hint="Email Id">></oj-c-input-text>
-    <oj-c-input-text value="{{password}}" label-hint="password"></oj-c-input-text>
 
-    <button data-bind="click: loginCustomer">Log In As Customer</button>
+  <!-- Sign In Section -->
+  <div data-bind="ojModule: { name: 'signinModule', params: { visible: signin } }" class="oj-sm-margin-2x">
+    <oj-input-text value="{{firstName}}" label-hint="First Name" class="oj-sm-margin-2x"></oj-input-text>
+    <oj-input-text value="{{lastName}}" label-hint="Last Name" class="oj-sm-margin-2x"></oj-input-text>
+    <oj-input-text value="{{phoneNumber}}" label-hint="Phone Number" class="oj-sm-margin-2x"></oj-input-text>
+    <oj-input-text value="{{city}}" label-hint="City" class="oj-sm-margin-2x"></oj-input-text>
+    <oj-input-text value="{{emailId}}" label-hint="Email Id" class="oj-sm-margin-2x"></oj-input-text>
+    <oj-input-password value="{{password}}" label-hint="Password" class="oj-sm-margin-2x"></oj-input-password>
 
-    <button data-bind="click: loginAdmin">Log In As Admin</button>
-
+    <div class="oj-flex oj-sm-justify-content-center oj-sm-margin-2x">
+      <oj-button on-oj-action="[[submitCustomer]]" class="oj-sm-margin-2x">Sign In As Customer</oj-button>
+      <oj-button on-oj-action="[[submitAdmin]]" class="oj-sm-margin-2x">Sign In As Admin</oj-button>
+    </div>
   </div>
-  </oj-form-layout>
+
+  <!-- Log In Section -->
+  <div data-bind="visible: !signin()" class="oj-sm-margin-2x">
+    <oj-input-text value="{{emailId}}" label-hint="Email Id" class="oj-sm-margin-2x"></oj-input-text>
+    <oj-input-password value="{{password}}" label-hint="Password" class="oj-sm-margin-2x"></oj-input-password>
+
+    <div class="oj-flex oj-sm-justify-content-center oj-sm-margin-2x">
+      <oj-button on-oj-action="[[loginCustomer]]" class="oj-sm-margin-2x">Log In As Customer</oj-button>
+      <oj-button on-oj-action="[[loginAdmin]]" class="oj-sm-margin-2x">Log In As Admin</oj-button>
+    </div>
+  </div>
+
+</oj-form-layout>

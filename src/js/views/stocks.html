@@ -1,177 +1,82 @@
-<div class="oj-hybrid-padding">
-  <h1>Stock Page</h1>
+<div class="oj-hybrid-padding stocks-root">
 
-  <div data-bind="visible:isAdmin">
-
-    <!-- BUTTONS FOR ACTION -->
-    <button data-bind="click: addStock">Add Stock</button>
-
-    <button data-bind="click: deleteStock">Delete Stock</button>
-
-    <button data-bind="click: listStock">List Stock</button>
-
-    <button data-bind="click: updateStock">Update Stock</button>
-    <!-- BUTTONS FOR ACTION END -->
-
-    <!-- START OF ADD STOCK -->
-    <div data-bind="visible: showAddStock">
-      <h3>Add Stock</h3>
-
-      <label>Stock Name:</label>
-      <input type="text" data-bind="value: name" required />
-      <br>
-
-      <label>Price:</label>
-      <input type="number" data-bind="value: price" required />
-      <br>
-
-      <label>Volume:</label>
-      <input type="number" data-bind="value: volume" required />
-      <br>
-
-      <label>Listed Exchange:</label>
-      <select data-bind="value: listedExchange" required>
-        <option value="">Select Exchange</option>
-        <option value="BSE">BSE</option>
-        <option value="NSE">NSE</option>
-      </select>
-      <br>
-
-      <label>Listed Date:</label>
-      <input type="date" data-bind="value: listedDate" required />
-      <br>
-
-      <label>Listing Price:</label>
-      <input type="number" data-bind="value: listingPrice" required />
-      <br><br>
-
-      <button data-bind="click: submitStock, enable: isFormValid">Submit</button>
+  <div class="page-header">
+    <div>
+      <h1>Stock Management</h1>
+      <p class="subtitle">Add, list, update or delete stocks</p>
     </div>
 
-    <!-- END OF ADD STOCK -->
-
-    <!-- START LIST ALL STOCKS -->
-    <div data-bind="visible : showAllStock">
-      <h3>All Stock</h3>
-
-      <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-          <tr>
-            <th>Stock ID</th>
-            <th>Stock Name</th>
-            <th>Stock Price</th>
-            <th>Stock Volume</th>
-            <th>Listed Exchange</th>
-            <th>Listed Date</th>
-            <th>Listed Price</th>
-          </tr>
-        </thead>
-        <tbody data-bind="foreach: stocks">
-          <tr>
-            <td data-bind="text: stockId"></td>
-            <td data-bind="text: name"></td>
-            <td data-bind="text: price"></td>
-            <td data-bind="text: volume"></td>
-            <td data-bind="text: listedExchange"></td>
-            <td data-bind="text: listedDate"></td>
-            <td data-bind="text:listingPrice"></td>
-        </tbody>
-      </table>
+    <!-- Admin action toolbar -->
+    <div data-bind="visible: isAdmin" class="toolbar">
+      <oj-button class="toolbar-btn" data-bind="click: addStock">Add Stock</oj-button>
+      <oj-button class="toolbar-btn" data-bind="click: deleteStock">Delete Stock</oj-button>
+      <oj-button class="toolbar-btn" data-bind="click: listStock">List Stock</oj-button>
+      <oj-button class="toolbar-btn" data-bind="click: updateStock">Update Stock</oj-button>
     </div>
-    <!-- END OF LIST ALL STOCK -->
-
-    <!-- START DELETE STOCK -->
-    <div data-bind="visible : showDeleteStock">
-      <h3>Delete Stock</h3>
-
-      <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-          <tr>
-            <th>Stock ID</th>
-            <th>Stock Name</th>
-            <th>Stock Price</th>
-            <th>Stock Volume</th>
-            <th>Listed Exchange</th>
-            <th>Listed Date</th>
-            <th>Listed Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody data-bind="foreach: stocks">
-          <tr>
-            <td data-bind="text: stockId"></td>
-            <td data-bind="text: name"></td>
-            <td data-bind="text: price"></td>
-            <td data-bind="text: volume"></td>
-            <td data-bind="text: listedExchange"></td>
-            <td data-bind="text: listedDate"></td>
-            <td data-bind="text:listingPrice"></td>
-            <button data-bind="click: function() { $parent.deleteStockById(stockId) }">Delete</button>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- END OF DELETE STOCK -->
-
-    <!-- START UPDATE STOCK -->
-    <div data-bind="visible: showUpdateStock">
-      <h3>Update Stocks</h3>
-      <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-          <tr>
-            <th>Stock ID</th>
-            <th>Stock Name</th>
-            <th>Stock Price</th>
-            <th>Stock Volume</th>
-            <th>Listed Exchange</th>
-            <th>Listed Date</th>
-            <th>Listed Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody data-bind="foreach: stocks">
-          <tr>
-            <td data-bind="text: stockId"></td>
-            <td><input type="text" data-bind="value: name" /></td>
-            <td><input type="number" data-bind="value: price" /></td>
-            <td><input type="number" data-bind="value: volume" /></td>
-            <td>
-              <select data-bind="value: listedExchange">
-                <option value="BSE">BSE</option>
-                <option value="NSE">NSE</option>
-              </select>
-            </td>
-            <td><input type="date" data-bind="value: listedDate" /></td>
-            <td><input type="number" data-bind="value: listingPrice" /></td>
-            <td>
-              <button data-bind="click: function() { $parent.updateStockById($data,stockId) }">Update</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- END UPDATE STOCK -->
   </div>
 
-  <div data-bind="visible:!isAdmin()">
-    <button data-bind="click: listStock">List Stocks</button>
-    <button data-bind="click: listMyStocks">My Stocks</button>
+  <!-- ADMIN AREA -->
+  <div data-bind="visible: isAdmin">
 
-    <!-- START OF ALL STOCKS -->
-    <div data-bind="visible : showAllStock">
-      <h3>All Stock</h3>
+    <!-- ADD STOCK (form) -->
+    <div data-bind="visible: showAddStock" class="card form-card">
+      <h3>Add Stock</h3>
 
-      <table border="1" cellpadding="8" cellspacing="0">
+      <oj-form-layout label-edge="start" max-columns="2" class="form-grid">
+        <oj-input-text label-hint="Stock Name" value="{{name}}" class="full"></oj-input-text>
+
+        <oj-input-number label-hint="Price" value="{{price}}" class="full"></oj-input-number>
+
+        <oj-input-number label-hint="Volume" value="{{volume}}" class="full"></oj-input-number>
+
+        <!-- listedExchange using select-single for nicer UI -->
+        <oj-select-single
+          label-hint="Listed Exchange"
+          options='["BSE","NSE"]'
+          value="{{listedExchange}}"
+          class="full"></oj-select-single>
+
+        <!-- date input -->
+        <oj-input-date label-hint="Listed Date" value="{{listedDate}}" class="full"></oj-input-date>
+
+        <oj-input-number label-hint="Listing Price" value="{{listingPrice}}" class="full"></oj-input-number>
+      </oj-form-layout>
+
+      <div class="form-actions">
+        <oj-button class="primary" data-bind="click: submitStock, enable: isFormValid">Submit</oj-button>
+      </div>
+    </div>
+    <!-- /ADD STOCK -->
+
+    <!-- ALL STOCKS (oj-table for polished listing) -->
+    <div data-bind="visible: showAllStock" class="card list-card">
+      <h3>All Stocks</h3>
+
+      <!-- oj-table expects a collection; we pass your observableArray `stocks` -->
+      <oj-table
+        data="{{stocks}}"
+        columns='[
+          {"headerText":"Stock ID","field":"stockId"},
+          {"headerText":"Name","field":"name"},
+          {"headerText":"Price","field":"price"},
+          {"headerText":"Volume","field":"volume"},
+          {"headerText":"Exchange","field":"listedExchange"},
+          {"headerText":"Listed Date","field":"listedDate"},
+          {"headerText":"Listing Price","field":"listingPrice"}
+        ]'
+        class="oj-table-responsive">
+      </oj-table>
+    </div>
+
+    <!-- DELETE STOCK (table with action) -->
+    <div data-bind="visible: showDeleteStock" class="card list-card">
+      <h3>Delete Stock</h3>
+
+      <table class="styled-table">
         <thead>
           <tr>
-            <th>Stock ID</th>
-            <th>Stock Name</th>
-            <th>Stock Price</th>
-            <th>Stock Volume</th>
-            <th>Listed Exchange</th>
-            <th>Listed Date</th>
-            <th>Listed Price</th>
-            <th>Action</th>
+            <th>Stock ID</th><th>Name</th><th>Price</th><th>Volume</th>
+            <th>Exchange</th><th>Listed Date</th><th>Listing Price</th><th>Action</th>
           </tr>
         </thead>
         <tbody data-bind="foreach: stocks">
@@ -182,44 +87,101 @@
             <td data-bind="text: volume"></td>
             <td data-bind="text: listedExchange"></td>
             <td data-bind="text: listedDate"></td>
-            <td data-bind="text:listingPrice"></td>
+            <td data-bind="text: listingPrice"></td>
             <td>
-              <!-- Buy button shows input when clicked -->
-              <button
-                data-bind="click: function() { $parent.changeShowQuantity()}, visible: !$parent.showQuantity()">Buy</button>
-
-              <!-- Show input field and Confirm button -->
-              <div data-bind="visible: $parent.showQuantity()">
-                <input type="number" min="1" placeholder="Enter qty" data-bind="value: $parent.qty" />
-                <button data-bind="click: function() { $parent.buyStockById($data, $parent.qty()) }">Confirm</button>
-              </div>
+              <oj-button class="danger small"
+                         data-bind="click: function() { $parent.deleteStockById(stockId) }">Delete</oj-button>
             </td>
-
-
+          </tr>
         </tbody>
       </table>
     </div>
-    <!-- END OF LIST ALL STOCK -->
 
-    <!-- START OF MY STOCK -->
+    <!-- UPDATE STOCK (editable rows) -->
+    <div data-bind="visible: showUpdateStock" class="card list-card">
+      <h3>Update Stocks</h3>
 
-    <div data-bind="visible: showMyAllStock">
-      <h1>My Stocks</h1>
-      <!-- Table shown only if stocks exist -->
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Stock ID</th><th>Name</th><th>Price</th><th>Volume</th>
+            <th>Exchange</th><th>Listed Date</th><th>Listing Price</th><th>Action</th>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: stocks">
+          <tr>
+            <td data-bind="text: stockId"></td>
+            <td><oj-input-text class="small-input" value="{{name}}"></oj-input-text></td>
+            <td><oj-input-number class="small-input" value="{{price}}"></oj-input-number></td>
+            <td><oj-input-number class="small-input" value="{{volume}}"></oj-input-number></td>
+            <td>
+              <oj-select-single options='["BSE","NSE"]' value="{{listedExchange}}"></oj-select-single>
+            </td>
+            <td><oj-input-date value="{{listedDate}}"></oj-input-date></td>
+            <td><oj-input-number value="{{listingPrice}}"></oj-input-number></td>
+            <td>
+              <oj-button class="primary small"
+                         data-bind="click: function() { $parent.updateStockById($data, stockId) }">Update</oj-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <!-- /ADMIN AREA -->
+
+  <!-- NON-ADMIN AREA -->
+  <div data-bind="visible: !isAdmin()">
+    <div class="toolbar">
+      <oj-button class="toolbar-btn" data-bind="click: listStock">List Stocks</oj-button>
+      <oj-button class="toolbar-btn" data-bind="click: listMyStocks">My Stocks</oj-button>
+    </div>
+
+    <!-- Listing for all users (with buy flow) -->
+    <div data-bind="visible: showAllStock" class="card list-card">
+      <h3>All Stocks</h3>
+
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Stock ID</th><th>Name</th><th>Price</th><th>Volume</th>
+            <th>Exchange</th><th>Listed Date</th><th>Listing Price</th><th>Action</th>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: stocks">
+          <tr>
+            <td data-bind="text: stockId"></td>
+            <td data-bind="text: name"></td>
+            <td data-bind="text: price"></td>
+            <td data-bind="text: volume"></td>
+            <td data-bind="text: listedExchange"></td>
+            <td data-bind="text: listedDate"></td>
+            <td data-bind="text: listingPrice"></td>
+            <td>
+              <oj-button class="primary small"
+                         data-bind="click: function() { $parent.changeShowQuantity()}, visible: !$parent.showQuantity()">Buy</oj-button>
+
+              <div data-bind="visible: $parent.showQuantity()" class="inline-qty">
+                <oj-input-number value="{{ $parent.qty }}" min="1" class="qty-input"></oj-input-number>
+                <oj-button data-bind="click: function() { $parent.buyStockById($data, $parent.qty()) }">Confirm</oj-button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- My Stocks -->
+    <div data-bind="visible: showMyAllStock" class="card list-card">
+      <h3>My Stocks</h3>
+
       <div data-bind="visible: stocks().length > 0">
-
-        <table border="1" cellpadding="8" cellspacing="0">
+        <table class="styled-table">
           <thead>
             <tr>
-              <th>Stock ID</th>
-              <th>Stock Name</th>
-              <th>Stock Price</th>
-              <th>Stock Volume</th>
-              <th>Listed Exchange</th>
-              <th>Listed Date</th>
-              <th>Listed Price</th>
-              <th>Quantity</th>
-              <th>Action</th>
+              <th>Stock ID</th><th>Name</th><th>Price</th><th>Volume</th>
+              <th>Exchange</th><th>Listed Date</th><th>Listing Price</th><th>Quantity</th><th>Action</th>
             </tr>
           </thead>
           <tbody data-bind="foreach: stocks">
@@ -232,31 +194,74 @@
               <td data-bind="text: listedDate"></td>
               <td data-bind="text: listingPrice"></td>
               <td data-bind="text: $data.qty"></td>
-                          <td>
-              <!-- Buy button shows input when clicked -->
-              <button
-                data-bind="click: function() { $parent.changeShowQuantity()}, visible: !$parent.showQuantity()">SELL</button>
+              <td>
+                <oj-button class="danger small"
+                           data-bind="click: function() { $parent.changeShowQuantity()}, visible: !$parent.showQuantity()">SELL</oj-button>
 
-              <!-- Show input field and Confirm button -->
-              <div data-bind="visible: $parent.showQuantity()">
-                <input type="number" min="1" placeholder="Enter qty" data-bind="value: $parent.qty" />
-                <button data-bind="click: function() { $parent.sellStockById($data, $parent.qty()) }">Confirm</button>
-              </div>
-            </td>
+                <div data-bind="visible: $parent.showQuantity()" class="inline-qty">
+                  <oj-input-number value="{{ $parent.qty }}" min="1" class="qty-input"></oj-input-number>
+                  <oj-button data-bind="click: function() { $parent.sellStockById($data, $parent.qty()) }">Confirm</oj-button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- Message when stocks are empty -->
       <div data-bind="visible: stocks().length === 0">
         <p>You have not bought any stocks.</p>
       </div>
     </div>
-
-    <!-- END OF MY STOCK -->
-
   </div>
-
+  <!-- /NON-ADMIN AREA -->
 
 </div>
+
+<style>
+  /* Layout */
+  .stocks-root { max-width: 1100px; margin: 1.25rem auto; padding-bottom: 2rem; }
+  .page-header { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+  .page-header h1 { margin:0; }
+  .subtitle { margin:0; color:#666; font-size:0.95rem; }
+
+  /* Toolbar */
+  .toolbar { display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; }
+  .toolbar-btn { border-radius:8px; }
+
+  /* Card */
+  .card { background:#fff; border-radius:10px; padding:16px; box-shadow:0 6px 18px rgba(0,0,0,0.06); margin-bottom:18px; border:1px solid rgba(0,0,0,0.04); }
+
+  /* Form grid */
+  .form-grid { gap:12px; align-items:start; }
+  .full { width:100%; }
+
+  .form-actions { margin-top:12px; display:flex; gap:8px; }
+
+  /* Tables */
+  .styled-table { width:100%; border-collapse: collapse; }
+  .styled-table thead th { text-align:left; padding:10px 8px; background:#f7f8fa; border-bottom:1px solid #e8e9eb; }
+  .styled-table tbody td { padding:10px 8px; border-bottom:1px solid #f0f0f0; vertical-align:middle; }
+  .styled-table tbody tr:hover { background:#fbfcfe; }
+
+  /* Small / inline */
+  .small { padding:6px 10px; font-size:0.9rem; }
+  .small-input ::slotted(input) { font-size:0.95rem; }
+
+  .inline-qty { display:inline-flex; gap:8px; align-items:center; margin-left:8px; }
+  .qty-input ::slotted(input) { width:80px; }
+
+  /* Button variants */
+  oj-button.primary { --oj-button-bg: #0b78e3; color:#fff; }
+  oj-button.danger { --oj-button-bg: #e03b3b; color:#fff; }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .page-header { flex-direction:column; align-items:stretch; gap:8px; }
+    .toolbar { justify-content:center; }
+    .form-grid { grid-template-columns: 1fr; }
+    .inline-qty { display:flex; flex-direction:column; align-items:flex-start; }
+  }
+
+  /* oj-table helper */
+  .oj-table-responsive ::slotted(table) { width:100%; }
+</style>

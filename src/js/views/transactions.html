@@ -1,11 +1,20 @@
-<div class="oj-hybrid-padding">
-  <h1>Transactions Page</h1>
+<div class="oj-hybrid-padding transactions-root">
 
-  <div data-bind="visible:isAdmin">
-    <!-- <button data-bind="click: listTransactions">List Transactions</button> -->
-    <!-- <br><br> -->
+  <div class="page-header">
+    <div>
+      <h1>Transactions</h1>
+      <p class="subtitle">All transactions — admin sees customer info</p>
+    </div>
+    <div class="toolbar">
+      <!-- keep any control buttons here later (export / refresh) -->
+    </div>
+  </div>
 
-    <table border="1" cellpadding="8" cellspacing="0">
+  <!-- ADMIN VIEW (includes customer columns) -->
+  <div data-bind="visible: isAdmin" class="card list-card">
+    <h3>All Transactions (Admin)</h3>
+
+    <table class="styled-table">
       <thead>
         <tr>
           <th>Transaction ID</th>
@@ -35,14 +44,14 @@
     </table>
   </div>
 
-  <div data-bind="visible:!isAdmin()">
+  <!-- NON-ADMIN VIEW (no customer columns) -->
+  <div data-bind="visible: !isAdmin()" class="card list-card">
+    <h3>My Transactions</h3>
 
-    <table border="1" cellpadding="8" cellspacing="0">
+    <table class="styled-table">
       <thead>
         <tr>
           <th>Transaction ID</th>
-          <!-- <th>Customer Id</th>
-          <th>Customer Name</th> -->
           <th>Stock Id</th>
           <th>Stock Name</th>
           <th>Transaction Type</th>
@@ -54,8 +63,6 @@
       <tbody data-bind="foreach: transactions">
         <tr>
           <td data-bind="text: txnId"></td>
-          <!-- <td data-bind="text: customer.customerId"></td>
-          <td data-bind="text: customer.firstName + ' ' + customer.lastName"></td> -->
           <td data-bind="text: stock.stockId"></td>
           <td data-bind="text: stock.name"></td>
           <td data-bind="text: txnType"></td>
@@ -65,7 +72,44 @@
         </tr>
       </tbody>
     </table>
-
-
   </div>
+
 </div>
+
+<style>
+  /* Root/layout */
+  .transactions-root { max-width: 1100px; margin: 1.25rem auto; padding-bottom: 2rem; }
+  .page-header { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+  .page-header h1 { margin:0; }
+  .subtitle { margin:0; color:#666; font-size:0.95rem; }
+
+  /* Card */
+  .card { background:#fff; border-radius:10px; padding:16px; box-shadow:0 6px 18px rgba(0,0,0,0.06); margin-bottom:18px; border:1px solid rgba(0,0,0,0.04); }
+
+  /* Table styling */
+  .styled-table { width:100%; border-collapse: collapse; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+  .styled-table thead th {
+    text-align:left;
+    padding:10px 12px;
+    background:#f6f8fa;
+    border-bottom:1px solid #e8e9eb;
+    font-weight:600;
+    font-size:0.95rem;
+  }
+  .styled-table tbody td {
+    padding:10px 12px;
+    border-bottom:1px solid #f0f0f0;
+    vertical-align:middle;
+    font-size:0.95rem;
+    color:#222;
+  }
+  .styled-table tbody tr:hover { background:#fbfcfe; }
+
+  /* Narrow screens: stack table into a scrollable container */
+  @media (max-width: 880px) {
+    .styled-table { display:block; overflow-x:auto; white-space:nowrap; }
+  }
+
+  /* Small polish */
+  h3 { margin-top:0; margin-bottom:12px; }
+</style>

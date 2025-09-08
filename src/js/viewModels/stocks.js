@@ -326,6 +326,10 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
 
       this.sellStockById = function (stock, qty) {
         const customerId = localStorage.getItem("userId");
+        if(qty>stock.qty){
+          alert("Entered quantity is more");
+          return;
+        }
         if (!qty || qty <= 0) {
           alert("Please enter a valid quantity.");
           return;

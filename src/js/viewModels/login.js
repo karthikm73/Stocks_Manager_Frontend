@@ -1,4 +1,4 @@
-define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/button", "oj-c/input-text", "oj-c/form-layout", "ojs/ojknockout"],
+define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/button", "oj-c/input-text", "oj-c/form-layout", "ojs/ojknockout","oj-c/input-password"],
   function (accUtils, ko, CoreRouter, Bootstrap) {
     function LoginViewModel() {
       var self = this;
@@ -18,9 +18,6 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
 
       this.emailId = ko.observable('');
       this.password= ko.observable('');
-
-
-      
 
       this.isLoggedIn = ko.observable(localStorage.getItem("isLoggedIn") === "true"); 
 
@@ -49,7 +46,10 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
           body: JSON.stringify(payload)
         })
           .then(response => {
-            if (!response.ok) throw new Error("Network response error");
+            if (!response.ok) {
+              alert("Cannot add customer at the moment try again later");
+              return;
+            };
             return response.json();
           })
           .then(data => {
@@ -68,7 +68,7 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
 
       this.submitAdmin=function(){
         // Basic validation
-        if (!self.firstName() || !self.lastName() || !self.phoneNumber() || !self.city() || !self.emailId()) {
+        if (!self.firstName() || !self.lastName() || !self.phoneNumber() || !self.city() || !self.emailId() || !self.password()) {
           alert("All fields are required.");
           return;
         }
@@ -89,7 +89,10 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
           body: JSON.stringify(payload)
         })
           .then(response => {
-            if (!response.ok) throw new Error("Network response error");
+            if (!response.ok) {
+              alert("Admin cannot be added");
+              return;
+            }
             return response.json();
           })
           .then(data => {
@@ -109,7 +112,7 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
 
       this.loginCustomer=function(){
 
-        if (!self.emailId()) {
+        if (!self.emailId() || !self.password()) {
           alert("All fields are required.");
           return;
         }
@@ -121,7 +124,10 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
           },
         })
           .then(response => {
-            if (!response.ok) throw new Error("Network response error");
+            if (!response.ok) {
+              alert("Customer doesnt exit");
+              return;
+            }
             return response.json();
           })
           .then(data => {
@@ -142,7 +148,7 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
 
       this.loginAdmin=function(){
 
-        if (!self.emailId()) {
+        if (!self.emailId() || !self.password()) {
           alert("All fields are required.");
           return;
         }
@@ -154,7 +160,10 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
           },
         })
           .then(response => {
-            if (!response.ok) throw new Error("Network response error");
+            if (!response.ok) {
+              alert("Admin doesnt exit");
+              return;
+            };
             return response.json();
           })
           .then(data => {
@@ -168,6 +177,7 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', "ojs/ojbootstrap", "oj-c/
             CoreRouter.rootInstance.go({ path: 'stocks' });
           })
           .catch(error => {
+            alert("Admin login error");
             console.error("Error login Admin:", error);
           });
 

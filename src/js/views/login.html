@@ -13,16 +13,14 @@
     <oj-c-input-text value="{{phoneNumber}}" label-hint="Phone Number"></oj-c-input-text>
     <oj-c-input-text value="{{city}}" label-hint="City"></oj-c-input-text>
     <oj-c-input-text value="{{emailId}}" label-hint="Email Id"></oj-c-input-text>
-    <oj-c-input-text value="{{password}}" label-hint="Password"></oj-c-input-text>
-    <div class="form-action-buttons">
+<oj-c-input-password label-hint="Input Password" value="{{password}}"></oj-c-input-password>    <div class="form-action-buttons">
       <button data-bind="click: submitCustomer">Sign In As Customer</button>
       <button data-bind="click: submitAdmin">Sign In As Admin</button>
     </div>
   </div>
   <div data-bind="visible:!signin()">
     <oj-c-input-text value="{{emailId}}" label-hint="Email Id"></oj-c-input-text>
-    <oj-c-input-text value="{{password}}" label-hint="Password"></oj-c-input-text>
-    <div class="form-action-buttons">
+<oj-c-input-password label-hint="Input Password" value="{{password}}"></oj-c-input-password>    <div class="form-action-buttons">
       <button data-bind="click: loginCustomer">Log In As Customer</button>
       <button data-bind="click: loginAdmin">Log In As Admin</button>
     </div>

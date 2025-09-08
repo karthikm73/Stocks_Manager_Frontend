@@ -48,3 +48,92 @@ html[dir="rtl"] .demo-oracle-icon {
       transform:translate(-25%, -25%) scale(0.5)
   }
 }
+
+
+/* === App-wide Green Theme for Nav and Footer === */
+
+/* NAV DRAWER (oj-drawer-popup, offcanvas) */
+.oj-drawer-popup,
+.oj-drawer-popup .oj-navigation-list,
+.oj-web-applayout-offcanvas-icon,
+.oj-web-applayout-header {
+  background-color: #79cf9d !important; /* Primary Green */
+  color: #fff !important;
+}
+
+.oj-navigation-list .oj-navigationlist-item,
+.oj-navigation-list .oj-navigationlist-group {
+  background: transparent !important;
+  color: #e9faef !important;
+}
+
+.oj-navigation-list .oj-selected, 
+.oj-navigation-list .oj-navigationlist-item.oj-selected {
+  background-color: #79cf9d !important; /* Darker green highlight */
+  color: #fff !important;
+}
+
+.oj-navigation-list .oj-navigationlist-item:hover {
+  background-color: #79cf9d !important; /* Lighter green on hover */
+}
+
+.oj-web-applayout-navbar,
+.oj-web-applayout-header {
+  background-color: #79cf9d !important;
+  color: #fff !important;
+  border-bottom: 2px solid #b2dfc0; /* Greenish accent */
+}
+
+/* NAV BAR TAB (oj-tab-bar) */
+.oj-tab-bar {
+  background-color: #79cf9d !important;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 2px 16px rgba(34, 145, 80, 0.10);
+}
+.oj-tab-bar .oj-tabs-bar-item {
+  color: #e9faef !important;
+}
+.oj-tab-bar .oj-selected {
+  background: #e9faef !important;
+  color: #79cf9d !important;
+  border-radius: 6px 6px 0 0;
+  font-weight: 600;
+}
+
+/* NAV ICONS (for visibility on dark bg) */
+.demo-oracle-icon,
+.oj-web-applayout-offcanvas-icon,
+.oj-component-icon {
+  filter: brightness(10) saturate(1.2) invert(0.12);
+}
+
+/* FOOTER */
+.oj-web-applayout-footer {
+  background: #55a979 !important;  /* Deep green for footer */
+  color: #e9faef !important;
+  border-top: 2px solid #b2dfc0;
+}
+.oj-web-applayout-footer a {
+   color: #111 !important;
+  text-decoration: underline;
+}
+.oj-web-applayout-footer a:hover, .oj-web-applayout-footer a:focus {
+  color: #fff !important;
+}
+
+.oj-web-applayout-footer-item,
+.oj-web-applayout-footer .oj-text-color-secondary {
+ color: #111
+}
+
+.oj-web-applayout-footer ul {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  padding: 0;
+  margin: 0;
+}
+
+.oj-web-applayout-footer li {
+  display: inline-block;
+}

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../../css/stock-page.css">
 <div class="oj-hybrid-padding">
   <h1>Stock Page</h1>
 
@@ -14,20 +15,17 @@
     <!-- BUTTONS FOR ACTION END -->
 
     <!-- START OF ADD STOCK -->
-    <div data-bind="visible: showAddStock">
+    <!-- START OF ADD STOCK -->
+    <div data-bind="visible: showAddStock" class="add-stock-form">
       <h3>Add Stock</h3>
-
       <label>Stock Name:</label>
       <input type="text" data-bind="value: name" required />
-      <br>
 
       <label>Price:</label>
       <input type="number" data-bind="value: price" required />
-      <br>
 
       <label>Volume:</label>
       <input type="number" data-bind="value: volume" required />
-      <br>
 
       <label>Listed Exchange:</label>
       <select data-bind="value: listedExchange" required>
@@ -35,19 +33,17 @@
         <option value="BSE">BSE</option>
         <option value="NSE">NSE</option>
       </select>
-      <br>
 
       <label>Listed Date:</label>
       <input type="date" data-bind="value: listedDate" required />
-      <br>
 
       <label>Listing Price:</label>
       <input type="number" data-bind="value: listingPrice" required />
-      <br><br>
 
-      <button data-bind="click: submitStock, enable: isFormValid">Submit</button>
+      <div class="form-actions">
+        <button data-bind="click: submitStock, enable: isFormValid">Submit</button>
+      </div>
     </div>
-
     <!-- END OF ADD STOCK -->
 
     <!-- START LIST ALL STOCKS -->
@@ -232,17 +228,17 @@
               <td data-bind="text: listedDate"></td>
               <td data-bind="text: listingPrice"></td>
               <td data-bind="text: $data.qty"></td>
-                          <td>
-              <!-- Buy button shows input when clicked -->
-              <button
-                data-bind="click: function() { $parent.changeShowQuantity()}, visible: !$parent.showQuantity()">SELL</button>
+              <td>
+                <!-- Buy button shows input when clicked -->
+                <button
+                  data-bind="click: function() { $parent.changeShowQuantity()}, visible: !$parent.showQuantity()">SELL</button>
 
-              <!-- Show input field and Confirm button -->
-              <div data-bind="visible: $parent.showQuantity()">
-                <input type="number" min="1" placeholder="Enter qty" data-bind="value: $parent.qty" />
-                <button data-bind="click: function() { $parent.sellStockById($data, $parent.qty()) }">Confirm</button>
-              </div>
-            </td>
+                <!-- Show input field and Confirm button -->
+                <div data-bind="visible: $parent.showQuantity()">
+                  <input type="number" min="1" placeholder="Enter qty" data-bind="value: $parent.qty" />
+                  <button data-bind="click: function() { $parent.sellStockById($data, $parent.qty()) }">Confirm</button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

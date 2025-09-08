@@ -107,7 +107,7 @@ define(['knockout', 'ojs/ojcontext', 'ojs/ojmodule-element-utils', 'ojs/ojknocko
 
       // Header
       // Application Name used in Branding Area
-      this.appName = ko.observable("Stock Manager");
+      this.appName = ko.observable("Stocks Manager");
       // User Info used in Global Navigation area
       this.userLogin = ko.observable(localStorage.getItem("emailId") ?? "Please Login");
 

@@ -1,29 +1,30 @@
-<oj-c-form-layout direction="row">
+<link rel="stylesheet" href="../../css/login-style.css">
 
-
-  <button data-bind="click : changeToOther">Sign In</button>
-  <button data-bind="click: changeToOther">Log In</button>
-
+<!-- Enhanced HTML Structure -->
+<oj-c-form-layout direction="row" class="oj-c-form-layout">
+  <div class="form-header">Welcome, Sign in or Log in</div>
+  <div class="form-buttons">
+    <button data-bind="click: changeToOther">Sign In</button>
+    <button data-bind="click: changeToOther">Log In</button>
+  </div>
   <div data-bind="visible: signin">
-    <oj-c-input-text value="{{firstName}}" label-hint="First Name">></oj-c-input-text>
-    <oj-c-input-text value="{{lastName}}" label-hint="Last Name">></oj-c-input-text>
-    <oj-c-input-text value="{{phoneNumber}}" label-hint="Phone Number">></oj-c-input-text>
-    <oj-c-input-text value="{{city}}" label-hint="City">></oj-c-input-text>
-    <oj-c-input-text value="{{emailId}}" label-hint="Email Id">></oj-c-input-text>
-    <oj-c-input-text value="{{password}}" label-hint="password"></oj-c-input-text>
-
-
-    <button data-bind="click: submitCustomer">Sign In As Customer</button>
-
-    <button data-bind="click: submitAdmin">Sign In As Admin</button>
+    <oj-c-input-text value="{{firstName}}" label-hint="First Name"></oj-c-input-text>
+    <oj-c-input-text value="{{lastName}}" label-hint="Last Name"></oj-c-input-text>
+    <oj-c-input-text value="{{phoneNumber}}" label-hint="Phone Number"></oj-c-input-text>
+    <oj-c-input-text value="{{city}}" label-hint="City"></oj-c-input-text>
+    <oj-c-input-text value="{{emailId}}" label-hint="Email Id"></oj-c-input-text>
+    <oj-c-input-text value="{{password}}" label-hint="Password"></oj-c-input-text>
+    <div class="form-action-buttons">
+      <button data-bind="click: submitCustomer">Sign In As Customer</button>
+      <button data-bind="click: submitAdmin">Sign In As Admin</button>
+    </div>
   </div>
   <div data-bind="visible:!signin()">
-    <oj-c-input-text value="{{emailId}}" label-hint="Email Id">></oj-c-input-text>
-    <oj-c-input-text value="{{password}}" label-hint="password"></oj-c-input-text>
-
-    <button data-bind="click: loginCustomer">Log In As Customer</button>
-
-    <button data-bind="click: loginAdmin">Log In As Admin</button>
-
+    <oj-c-input-text value="{{emailId}}" label-hint="Email Id"></oj-c-input-text>
+    <oj-c-input-text value="{{password}}" label-hint="Password"></oj-c-input-text>
+    <div class="form-action-buttons">
+      <button data-bind="click: loginCustomer">Log In As Customer</button>
+      <button data-bind="click: loginAdmin">Log In As Admin</button>
+    </div>
   </div>
-  </oj-form-layout>
+</oj-c-form-layout>

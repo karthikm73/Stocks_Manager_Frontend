@@ -100,7 +100,7 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
             return response.json();
           })
           .then(data => {
-            this.stocks(data.data);
+            this.stocks(data.data.map(makeObservableStock));
           })
           .catch(error => {
             console.error(error);
@@ -157,7 +157,7 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
             return response.json();
           })
           .then(data => {
-            this.stocks(data.data);
+            this.stocks(data.data.map(makeObservableStock));
           })
           .catch(error => {
             console.error(error);
@@ -186,6 +186,12 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
 
       }
 
+      function makeObservableStock(stock) {
+          stock.showQuantity = ko.observable(false);
+          stock.quantity = ko.observable(0);
+          return stock;
+        }
+
 
       this.listStock = function () {
         this.showAddStock(false);
@@ -194,13 +200,18 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
         this.showDeleteStock(false);
         this.showMyAllStock(false);
 
+        
+
+        // When you set stocks:
+
+
         fetch('http://localhost:8081/stocks')
           .then(response => {
             if (!response.ok) throw new Error("Network response error");
             return response.json();
           })
           .then(data => {
-            this.stocks(data.data);
+            this.stocks(data.data.map(makeObservableStock));
           })
           .catch(error => {
             console.error(error);
@@ -255,7 +266,7 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
 
             console.log("Stocks with qty > 0:", stocksWithQty);
 
-            this.stocks(stocksWithQty);
+            this.stocks(stocksWithQty.map(makeObservableStock));
           })
 
 
@@ -326,7 +337,7 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
 
       this.sellStockById = function (stock, qty) {
         const customerId = localStorage.getItem("userId");
-        if(qty>stock.qty){
+        if (qty > stock.qty) {
           alert("Entered quantity is more");
           return;
         }

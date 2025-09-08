@@ -180,14 +180,11 @@
             <td data-bind="text: listedDate"></td>
             <td data-bind="text:listingPrice"></td>
             <td>
-              <!-- Buy button shows input when clicked -->
-              <button
-                data-bind="click: function() { $parent.changeShowQuantity()}, visible: !$parent.showQuantity()">Buy</button>
-
-              <!-- Show input field and Confirm button -->
-              <div data-bind="visible: $parent.showQuantity()">
-                <input type="number" min="1" placeholder="Enter qty" data-bind="value: $parent.qty" />
-                <button data-bind="click: function() { $parent.buyStockById($data, $parent.qty()) }">Confirm</button>
+              <!-- BUY example for customer -->
+              <button data-bind="click: function() { showQuantity(true) }, visible: !showQuantity()">Buy</button>
+              <div data-bind="visible: showQuantity">
+                <input type="number" min="1" placeholder="Enter qty" data-bind="value: quantity" />
+                <button data-bind="click: function() { $parent.buyStockById($data, quantity()) }">Confirm</button>
               </div>
             </td>
 
@@ -230,13 +227,10 @@
               <td data-bind="text: $data.qty"></td>
               <td>
                 <!-- Buy button shows input when clicked -->
-                <button
-                  data-bind="click: function() { $parent.changeShowQuantity()}, visible: !$parent.showQuantity()">SELL</button>
-
-                <!-- Show input field and Confirm button -->
-                <div data-bind="visible: $parent.showQuantity()">
-                  <input type="number" min="1" placeholder="Enter qty" data-bind="value: $parent.qty" />
-                  <button data-bind="click: function() { $parent.sellStockById($data, $parent.qty()) }">Confirm</button>
+                <button data-bind="click: function() { showQuantity(true) }, visible: !showQuantity()">SELL</button>
+                <div data-bind="visible: showQuantity">
+                  <input type="number" min="1" placeholder="Enter qty" data-bind="value: quantity" />
+                  <button data-bind="click: function() { $parent.sellStockById($data, quantity()) }">Confirm</button>
                 </div>
               </td>
             </tr>

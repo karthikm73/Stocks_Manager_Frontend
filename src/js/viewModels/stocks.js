@@ -187,10 +187,10 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
       }
 
       function makeObservableStock(stock) {
-          stock.showQuantity = ko.observable(false);
-          stock.quantity = ko.observable(0);
-          return stock;
-        }
+        stock.showQuantity = ko.observable(false);
+        stock.quantity = ko.observable(0);
+        return stock;
+      }
 
 
       this.listStock = function () {
@@ -200,7 +200,7 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
         this.showDeleteStock(false);
         this.showMyAllStock(false);
 
-        
+
 
         // When you set stocks:
 
@@ -217,6 +217,9 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
             console.error(error);
           })
       }
+
+      this.totalAssetValue = ko.observable(0)
+
 
       this.listMyStocks = function () {
         this.showAddStock(false);
@@ -266,7 +269,18 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
 
             console.log("Stocks with qty > 0:", stocksWithQty);
 
+            
+            let totalAssetValue = 0;
+            // After stocksWithQty is created
+
+            stocksWithQty.forEach(stock => {
+              stock.assetValue1 = (Number(stock.price) * stock.qty);
+              stock.assetValue =(Number(stock.price) * stock.qty).toFixed(2) ;
+              totalAssetValue += stock.assetValue1;
+            });
             this.stocks(stocksWithQty.map(makeObservableStock));
+
+            this.totalAssetValue(totalAssetValue);
           })
 
 
@@ -276,6 +290,8 @@ define(['../accUtils', 'knockout', 'ojs/ojcorerouter', 'ojs/ojinputtext', 'ojs/o
           })
 
       }
+
+
 
       this.showQuantity = ko.observable(false);
       this.changeShowQuantity = function () {

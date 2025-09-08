@@ -198,6 +198,9 @@
 
     <div data-bind="visible: showMyAllStock">
       <h1>My Stocks</h1>
+      <div>
+        <h3>Total Asset Value: <span data-bind="text: totalAssetValue"></span></h3>
+      </div>
       <!-- Table shown only if stocks exist -->
       <div data-bind="visible: stocks().length > 0">
 
@@ -212,6 +215,8 @@
               <th>Listed Date</th>
               <th>Listed Price</th>
               <th>Quantity</th>
+              <th>Asset Value</th>
+
               <th>Action</th>
             </tr>
           </thead>
@@ -225,6 +230,8 @@
               <td data-bind="text: listedDate"></td>
               <td data-bind="text: listingPrice"></td>
               <td data-bind="text: $data.qty"></td>
+              <td data-bind="text: assetValue"></td>
+
               <td>
                 <!-- Buy button shows input when clicked -->
                 <button data-bind="click: function() { showQuantity(true) }, visible: !showQuantity()">SELL</button>

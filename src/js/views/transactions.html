@@ -46,7 +46,7 @@
             <td data-bind="text: customer.firstName + ' ' + customer.lastName"></td>
             <td data-bind="text: stock.stockId"></td>
             <td data-bind="text: stock.name"></td>
-            <td data-bind="text: txnType"></td>
+            <td data-bind="text: txnType, style: { color: txnType === 'SELL' ? 'red' : 'green' }"></td>
             <td data-bind="text: txnPrice"></td>
             <td data-bind="text: qty"></td>
             <td data-bind="text: txnDate"></td>
@@ -90,7 +90,7 @@
           <td data-bind="text: customer.firstName + ' ' + customer.lastName"></td> -->
             <td data-bind="text: stock.stockId"></td>
             <td data-bind="text: stock.name"></td>
-            <td data-bind="text: txnType"></td>
+            <td data-bind="text: txnType, style: { color: txnType === 'SELL' ? 'red' : 'green' }"></td>
             <td data-bind="text: txnPrice"></td>
             <td data-bind="text: qty"></td>
             <td data-bind="text: txnDate"></td>

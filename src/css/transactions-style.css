@@ -1,0 +1,80 @@
+/* transactions-page.css
+ * Styling for Transactions Page
+ * Consistent green theme – responsive tables
+ */
+
+/* Root container */
+.oj-hybrid-padding {
+  max-width: 1180px;
+  margin: 32px auto;
+  padding: 40px 32px 32px 32px;
+  background: #f5fbf6;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 rgba(0,20,51,0.10);
+  font-family: "Segoe UI", Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+/* Main Title */
+.oj-hybrid-padding h1 {
+  text-align: center;
+  color: #205f3b;
+  margin-bottom: 38px;
+  font-size: 2.1rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* Responsive Table Container */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 8px rgba(34,139,84,0.06);
+  margin-bottom: 32px;
+  margin-top: 8px;
+  padding-bottom: 6px;
+}
+
+.table-responsive table {
+  min-width: 800px;
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+}
+
+table th, table td {
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 1rem;
+  border-bottom: 1px solid #c2ecd5;
+}
+
+table th {
+  background: #e9faef;
+  color: #219150;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+table td {
+  color: black;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .oj-hybrid-padding {
+    padding: 20px 6px 18px 6px;
+    max-width: 99vw;
+  }
+  table, th, td {
+    font-size: 0.96rem;
+  }
+}
+
+/* Section Spacing for Knockout controls */
+[data-bind^="visible:"], [data-bind^="visible :"] {
+  margin-bottom: 28px;
+  display: block;
+}

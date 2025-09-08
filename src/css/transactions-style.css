@@ -73,6 +73,39 @@ table td {
   }
 }
 
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-container label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.filter-container input {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.filter-container button {
+  padding: 6px 12px;
+  border: 1px solid #219150;
+  background-color: #219150;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.filter-container button:hover {
+  background-color: #005ea6;
+}
+
 /* Section Spacing for Knockout controls */
 [data-bind^="visible:"], [data-bind^="visible :"] {
   margin-bottom: 28px;

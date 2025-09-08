@@ -1,10 +1,10 @@
 
-define(['../accUtils', 'knockout','ojs/ojcorerouter'],
-  function (accUtils, ko,CoreRouter) {
+define(['../accUtils', 'knockout', 'ojs/ojcorerouter'],
+  function (accUtils, ko, CoreRouter) {
     function TransactionsViewModel() {
       var self = this;
-      this.isLoggedIn = ko.observable(localStorage.getItem("isLoggedIn") === "true"); 
-      this.isAdmin = ko.observable(localStorage.getItem("isAdmin") === "true"); 
+      this.isLoggedIn = ko.observable(localStorage.getItem("isLoggedIn") === "true");
+      this.isAdmin = ko.observable(localStorage.getItem("isAdmin") === "true");
 
 
       self.transactions = ko.observableArray([]);
@@ -18,7 +18,8 @@ define(['../accUtils', 'knockout','ojs/ojcorerouter'],
             return response.json();
           })
           .then(data => {
-            self.transactions(data.data); 
+            self.filteredTransactions(data.data);
+            self.transactions(data.data);
           })
           .catch(error => {
             console.error("Error fetching transactions:", error);
@@ -35,13 +36,38 @@ define(['../accUtils', 'knockout','ojs/ojcorerouter'],
             return response.json();
           })
           .then(data => {
-            self.transactions(data.data); 
+            self.filteredTransactions(data.data);
+            self.transactions(data.data);
           })
           .catch(error => {
             console.error("Error fetching transactions:", error);
           });
       };
 
+      // FILTERING LOGIC
+      self.filteredTransactions = ko.observableArray([]);
+      self.customerFilter = ko.observable('');
+      self.stockFilter = ko.observable('');
+
+      self.filterTransactions = function () {
+        let custFilter = self.customerFilter().toLowerCase().trim();
+        let stockFilter = self.stockFilter().toLowerCase().trim();
+        let filtered = self.transactions().filter(txn => {
+          const custName = (txn.customer.firstName + ' ' + txn.customer.lastName).toLowerCase();
+          const custId = String(txn.customer.custId);
+          const stockName = txn.stock.name.toLowerCase();
+          const stockId = String(txn.stock.stockId);
+          const matchesCustomer = custFilter === '' || custName.includes(custFilter) || custId.includes(custFilter);
+          const matchesStock = stockFilter === '' || stockName.includes(stockFilter) || stockId.includes(stockFilter);
+          return matchesCustomer && matchesStock;
+        });
+        self.filteredTransactions(filtered);
+      };
+      self.clearFilters = function () {
+        self.customerFilter('');
+        self.stockFilter('');
+        self.filteredTransactions(self.transactions());
+      };
 
 
       this.connected = () => {
@@ -50,10 +76,10 @@ define(['../accUtils', 'knockout','ojs/ojcorerouter'],
         if (!this.isLoggedIn()) {
           CoreRouter.rootInstance.go({ path: 'Login' });
         }
-        if(this.isAdmin()){
-            this.listTransactions();
+        if (this.isAdmin()) {
+          this.listTransactions();
 
-        }else{
+        } else {
           this.listMyTransactions();
         }
         // Implement further logic if needed

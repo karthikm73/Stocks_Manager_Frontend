@@ -6,6 +6,23 @@
   <div data-bind="visible:isAdmin">
     <!-- <button data-bind="click: listTransactions">List Transactions</button> -->
     <!-- <br><br> -->
+
+    <!-- FILTERING -->
+    <div class="filter-container">
+      <label for="customerFilter">Filter by Customer Name or ID:</label>
+      <input id="customerFilter" type="text" data-bind="value: customerFilter, valueUpdate: 'input'"
+        placeholder="Enter customer name or ID" />
+
+      <label for="stockFilter">Filter by Stock Name or ID:</label>
+      <input id="stockFilter" type="text" data-bind="value: stockFilter, valueUpdate: 'input'"
+        placeholder="Enter stock name or ID" />
+
+      <button data-bind="click: filterTransactions">Apply Filter</button>
+      <button data-bind="click: clearFilters">Clear Filters</button>
+    </div>
+
+
+
     <div class="table-responsive">
 
       <table border="1" cellpadding="8" cellspacing="0">
@@ -22,7 +39,7 @@
             <th>Date</th>
           </tr>
         </thead>
-        <tbody data-bind="foreach: transactions">
+        <tbody data-bind="foreach: filteredTransactions">
           <tr>
             <td data-bind="text: txnId"></td>
             <td data-bind="text: customer.customerId"></td>
@@ -40,6 +57,16 @@
   </div>
 
   <div data-bind="visible:!isAdmin()">
+    <div class="filter-container">
+
+      <label for="stockFilter">Filter by Stock Name or ID:</label>
+      <input id="stockFilter" type="text" data-bind="value: stockFilter, valueUpdate: 'input'"
+        placeholder="Enter stock name or ID" />
+
+      <button data-bind="click: filterTransactions">Apply Filter</button>
+      <button data-bind="click: clearFilters">Clear Filters</button>
+    </div>
+
     <div class="table-responsive">
 
       <table border="1" cellpadding="8" cellspacing="0">
@@ -56,7 +83,7 @@
             <th>Date</th>
           </tr>
         </thead>
-        <tbody data-bind="foreach: transactions">
+        <tbody data-bind="foreach: filteredTransactions">
           <tr>
             <td data-bind="text: txnId"></td>
             <!-- <td data-bind="text: customer.customerId"></td>
